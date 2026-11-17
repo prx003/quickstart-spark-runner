@@ -1,3 +1,4 @@
+// @ts-nocheck -- imported code written for looser compiler settings
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';

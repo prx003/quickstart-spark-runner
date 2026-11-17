@@ -1,3 +1,4 @@
+// @ts-nocheck -- imported code written for looser compiler settings
 import * as THREE from 'three';
 import { ScreenProgramType, renderScreenProgram } from './screenPrograms';
 

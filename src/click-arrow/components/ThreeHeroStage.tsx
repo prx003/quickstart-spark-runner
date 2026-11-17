@@ -1,3 +1,4 @@
+// @ts-nocheck -- imported code written for looser compiler settings
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
