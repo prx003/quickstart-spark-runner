@@ -153,3 +153,77 @@
     color: var(--color-foreground);
   }
 }
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-brand-red: #E80012;
+  --color-brand-black: #050505;
+  --color-brand-white: #FFFFFF;
+}
+
+@layer base {
+  html {
+    background-color: #050505;
+    color: #FFFFFF;
+    font-family: var(--font-sans);
+    scroll-behavior: auto;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: #050505;
+    color: #FFFFFF;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: #E80012;
+    color: #FFFFFF;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* CRT scanline & glass curvature highlights (strictly black & white luminance) */
+.crt-scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    rgba(0, 0, 0, 0.28) 1px,
+    rgba(0, 0, 0, 0.28) 3px
+  );
+}
+
+.crt-vignette {
+  box-shadow:
+    inset 0 0 42px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* Subtle horizontal scrollbar hiding for studio rail */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
