@@ -409,14 +409,13 @@ export const PROCESS_STAGES: ProcessStage[] = [
 ];
 
 export const CONTACT_DETAILS = {
-  email: 'hello@clickarrow.co',
-  phone: '+44 (0) 20 7946 0192',
-  studioLocation: 'London · Global Remote Studio',
-  hours: 'Mon – Fri · 09:00 – 18:30 GMT',
+  email: 'clickarrowcreative@gmail.com',
+  phone: '+91 9110815727',
+  whatsapp: '919110815727',
+  studioLocation: 'India · Global Remote Studio',
+  hours: 'Mon – Sat · 09:00 – 19:00 IST',
   socials: [
     { label: 'Instagram', handle: '@clickarrowstudio', href: '#contact-social-instagram' },
     { label: 'LinkedIn', handle: 'Click Arrow Agency', href: '#contact-social-linkedin' },
-    { label: 'Behance', handle: 'Click Arrow Studio', href: '#contact-social-behance' },
-    { label: 'YouTube', handle: 'Click Arrow Films', href: '#contact-social-youtube' },
   ],
 };

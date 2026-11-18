@@ -1,5 +1,5 @@
 // @ts-nocheck -- imported code written for looser compiler settings
-import { Check, Copy, Mail, Phone } from 'lucide-react';
+import { Check, Copy, Mail, MessageCircle, Phone } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
 import { CONTACT_DETAILS, SERVICES_CHANNELS } from '../data/clickArrowData';
 
@@ -18,6 +18,7 @@ export function ContactSection({ preselectedInterest }: ContactSectionProps) {
   const [errorMsg, setErrorMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
   const [socialNotice, setSocialNotice] = useState<string | null>(null);
 
   useEffect(() => {
@@ -61,6 +62,16 @@ export function ContactSection({ preselectedInterest }: ContactSectionProps) {
     }
   };
 
+  const handleCopyPhone = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_DETAILS.phone);
+      setCopiedPhone(true);
+      window.setTimeout(() => setCopiedPhone(false), 2400);
+    } catch {
+      setCopiedPhone(false);
+    }
+  };
+
   return (
     <section
       id="contact"
@@ -91,7 +102,7 @@ export function ContactSection({ preselectedInterest }: ContactSectionProps) {
 
             {/* Direct Contact Action Cards */}
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="border border-white/20 bg-[#080808]/90 p-5">
+              <div className="border border-white/20 bg-[#080808]/90 p-5 sm:col-span-2">
                 <span className="font-mono-tabular text-xs text-[#E80012] uppercase">
                   Direct Email
                 </span>
@@ -132,8 +143,40 @@ export function ContactSection({ preselectedInterest }: ContactSectionProps) {
                   <Phone className="h-4 w-4 text-[#E80012] shrink-0" />
                   <span>{CONTACT_DETAILS.phone}</span>
                 </a>
+                <button
+                  type="button"
+                  onClick={handleCopyPhone}
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-white cursor-pointer"
+                >
+                  {copiedPhone ? (
+                    <>
+                      <Check className="h-3.5 w-3.5 text-[#E80012]" />
+                      <span>Copied to clipboard</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5" />
+                      <span>Copy number</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="border border-white/20 bg-[#080808]/90 p-5">
+                <span className="font-mono-tabular text-xs text-[#E80012] uppercase">
+                  WhatsApp
+                </span>
+                <a
+                  href={`https://wa.me/${CONTACT_DETAILS.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 flex items-center gap-2 font-display text-lg font-bold text-white hover:text-[#E80012] transition-colors"
+                >
+                  <MessageCircle className="h-4 w-4 text-[#E80012] shrink-0" />
+                  <span>{CONTACT_DETAILS.phone}</span>
+                </a>
                 <p className="mt-3 text-xs text-white/65">
-                  {CONTACT_DETAILS.studioLocation} · {CONTACT_DETAILS.hours}
+                  Chat with the studio directly
                 </p>
               </div>
             </div>

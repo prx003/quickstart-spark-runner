@@ -6,8 +6,8 @@ interface NavbarProps {
 }
 
 const NAV_ITEMS = [
+  { label: 'Home', id: 'hero' },
   { label: 'Services', id: 'services' },
-  { label: 'Studio', id: 'studio' },
   { label: 'Strategy', id: 'strategy' },
   { label: 'Process', id: 'process' },
   { label: 'Contact', id: 'contact' },
@@ -30,20 +30,29 @@ export function Navbar({ onNavigate }: NavbarProps) {
           onClick={() => handleLinkClick('hero')}
           className="flex items-center gap-2.5 text-left font-display text-lg font-extrabold tracking-tight text-white whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white cursor-pointer"
         >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-            className="shrink-0"
-          >
-            <path
-              d="M3 4H12.5L21 12L12.5 20H3L11 12L3 4Z"
-              fill="#E80012"
-            />
-          </svg>
-          <span>CLICK ARROW</span>
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/25 bg-[#0B0B0B]">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+              className="shrink-0"
+            >
+              <path
+                d="M3 4H12.5L21 12L12.5 20H3L11 12L3 4Z"
+                fill="#E80012"
+              />
+            </svg>
+          </span>
+          <span className="flex flex-col leading-none">
+            <span className="font-display text-lg font-extrabold tracking-tight text-white">
+              CLICK ARROW
+            </span>
+            <span className="mt-1 font-mono-tabular text-[9px] font-semibold tracking-[0.28em] text-[#E80012] uppercase">
+              Creative Studio
+            </span>
+          </span>
         </button>
 
         {/* Zone 2: Concise single-line navigation links */}

@@ -22,12 +22,19 @@ export function ProcessSection() {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: section,
-        start: 'top 30%',
-        end: 'bottom 70%',
+        start: 'top 25%',
+        end: 'bottom 65%',
         onUpdate: (self) => {
+          // Hold stage 01 for the first stretch of the scroll so the red
+          // progress animation only begins once the section is properly in view.
+          const LEAD_IN = 0.22;
+          const eased = Math.max(
+            0,
+            (self.progress - LEAD_IN) / (1 - LEAD_IN),
+          );
           const idx = Math.min(
             PROCESS_STAGES.length - 1,
-            Math.floor(self.progress * PROCESS_STAGES.length),
+            Math.floor(eased * PROCESS_STAGES.length),
           );
           setActiveStage(idx);
         },

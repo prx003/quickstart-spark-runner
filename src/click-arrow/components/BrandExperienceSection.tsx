@@ -1,18 +1,56 @@
 // @ts-nocheck -- imported code written for looser compiler settings
-import { useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef, useState } from 'react';
 import { EXPERIENCE_PLATFORMS, STUDIO_ASSETS } from '../data/clickArrowData';
 import { CrtCanvasScreen } from './CrtCanvasScreen';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function BrandExperienceSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [focusedId, setFocusedId] = useState(EXPERIENCE_PLATFORMS[0].id);
 
   const focused =
     EXPERIENCE_PLATFORMS.find((p) => p.id === focusedId) ??
     EXPERIENCE_PLATFORMS[0];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('[data-exp-cards] > button', {
+        y: 44,
+        opacity: 0,
+        rotateX: -8,
+        duration: 0.75,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 76%' },
+      });
+
+      gsap.from('[data-exp-hub]', {
+        x: 48,
+        opacity: 0,
+        duration: 0.85,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 74%' },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="experience"
+      ref={sectionRef}
       className="relative z-10 border-t border-white/15 bg-[#050505]/92 py-24 sm:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
@@ -37,7 +75,10 @@ export function BrandExperienceSection() {
         {/* Multi-Screen Convergence Stage */}
         <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-12 items-center">
           {/* Left: Vintage CRT Broadcast Monitor + Frameless Modern Web Frame */}
-          <div className="lg:col-span-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div
+            data-exp-cards
+            className="lg:col-span-8 grid grid-cols-1 gap-6 sm:grid-cols-2"
+          >
             {/* Retro CRT Screen Frame */}
             <button
               type="button"
@@ -160,7 +201,10 @@ export function BrandExperienceSection() {
           </div>
 
           {/* Right: Central Brand Identity Hub */}
-          <div className="lg:col-span-4 flex flex-col justify-between border border-white/20 bg-[#080808] p-7">
+          <div
+            data-exp-hub
+            className="lg:col-span-4 flex flex-col justify-between border border-white/20 bg-[#080808] p-7"
+          >
             <div>
               <div className="flex items-center justify-between border-b border-white/15 pb-4">
                 <span className="font-mono-tabular text-xs font-bold tracking-widest text-[#E80012] uppercase">

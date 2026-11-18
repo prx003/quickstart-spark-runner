@@ -38,13 +38,13 @@ export function AttentionSection() {
       tl.fromTo(
         topLineRef.current,
         { xPercent: -8, opacity: 0.25 },
-        { xPercent: 4, opacity: 1, ease: 'none' },
+        { xPercent: 0, opacity: 1, ease: 'none' },
         0,
       )
         .fromTo(
           bottomLineRef.current,
           { xPercent: 10, opacity: 0.25 },
-          { xPercent: -2, opacity: 1, ease: 'none' },
+          { xPercent: 0, opacity: 1, ease: 'none' },
           0,
         )
         .fromTo(

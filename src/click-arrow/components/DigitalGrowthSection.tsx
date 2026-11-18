@@ -1,15 +1,52 @@
 // @ts-nocheck -- imported code written for looser compiler settings
-import { useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef, useState } from 'react';
 import { GROWTH_CHANNELS } from '../data/clickArrowData';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function DigitalGrowthSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [selectedId, setSelectedId] = useState(GROWTH_CHANNELS[0].id);
   const selected =
     GROWTH_CHANNELS.find((c) => c.id === selectedId) ?? GROWTH_CHANNELS[0];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('[data-growth-nodes] > button', {
+        y: 38,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.08,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 76%' },
+      });
+
+      gsap.from('[data-growth-panel]', {
+        x: 46,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 74%' },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="growth"
+      ref={sectionRef}
       className="relative z-10 border-t border-white/15 bg-[#050505] py-24 sm:py-32"
     >
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
@@ -35,7 +72,10 @@ export function DigitalGrowthSection() {
         {/* Interactive Signal Pipeline Grid */}
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12 items-stretch">
           {/* Left: 6 Selectable Channel Nodes */}
-          <div className="lg:col-span-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div
+            data-growth-nodes
+            className="lg:col-span-7 grid grid-cols-1 gap-3 sm:grid-cols-2"
+          >
             {GROWTH_CHANNELS.map((channel) => {
               const active = channel.id === selectedId;
               return (
@@ -83,7 +123,10 @@ export function DigitalGrowthSection() {
           </div>
 
           {/* Right: Visual Architecture Schematic for Selected Growth Channel */}
-          <div className="lg:col-span-5 flex flex-col justify-between border border-white/20 bg-[#090909] p-6 sm:p-8">
+          <div
+            data-growth-panel
+            className="lg:col-span-5 flex flex-col justify-between border border-white/20 bg-[#090909] p-6 sm:p-8"
+          >
             <div>
               <div className="flex items-center justify-between border-b border-white/15 pb-4">
                 <span className="font-mono-tabular text-xs font-bold tracking-widest text-[#E80012] uppercase">

@@ -227,3 +227,33 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Channel-showcase modal entrance */
+@keyframes ca-modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ca-modal-rise {
+  from { opacity: 0; transform: translateY(28px) scale(0.955); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.ca-modal-backdrop {
+  animation: ca-modal-fade 0.28s ease-out both;
+}
+
+.ca-modal-panel {
+  animation: ca-modal-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Hero button fire pulse */
+@keyframes ca-btn-fire {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 0, 18, 0.7); }
+  35% { transform: scale(0.94); }
+  100% { transform: scale(1); box-shadow: 0 0 0 24px rgba(232, 0, 18, 0); }
+}
+
+.ca-btn-fire {
+  animation: ca-btn-fire 0.55s ease-out;
+}

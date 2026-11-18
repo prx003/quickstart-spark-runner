@@ -29,6 +29,7 @@ export default function App() {
   const [contactInterest, setContactInterest] = useState<string | undefined>(
     undefined,
   );
+  const [channelFire, setChannelFire] = useState(false);
 
   // Initialize Lenis smooth scrolling + GSAP ScrollTrigger sync
   useEffect(() => {
@@ -145,8 +146,14 @@ export default function App() {
               </button>
               <button
                 type="button"
-                onClick={() => setModalChannelIndex(0)}
-                className="border border-white/60 bg-[#050505]/70 px-6 py-4 text-xs font-bold tracking-[0.16em] text-white uppercase transition-colors duration-150 hover:border-white hover:bg-[#050505] cursor-pointer"
+                onClick={() => {
+                  setChannelFire(true);
+                  setModalChannelIndex(0);
+                }}
+                onAnimationEnd={() => setChannelFire(false)}
+                className={`border border-white/60 bg-[#050505]/70 px-6 py-4 text-xs font-bold tracking-[0.16em] text-white uppercase transition-colors duration-150 hover:border-white hover:bg-[#050505] cursor-pointer ${
+                  channelFire ? 'ca-btn-fire' : ''
+                }`}
               >
                 Tune CRT Channel 01
               </button>

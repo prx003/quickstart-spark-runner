@@ -50,11 +50,11 @@ export function TvShowcaseModal({
       aria-modal="true"
       aria-label={`${service.channelNumber} ${service.title}`}
       data-no-3d="true"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
+      className="ca-modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-5xl border border-white/20 bg-[#080808] p-5 sm:p-8 lg:p-10"
+        className="ca-modal-panel relative w-full max-w-5xl border border-white/20 bg-[#080808] p-5 sm:p-8 lg:p-10"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Control Row */}
