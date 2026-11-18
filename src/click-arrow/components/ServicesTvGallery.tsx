@@ -16,6 +16,7 @@ export function ServicesTvGallery({
   const [activeIndex, setActiveIndex] = useState(0);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const touchStartX = useRef<number | null>(null);
+  const wheelLock = useRef(0);
 
   const activeService = SERVICES_CHANNELS[activeIndex];
   const total = SERVICES_CHANNELS.length;
@@ -26,6 +27,16 @@ export function ServicesTvGallery({
 
   const goNext = () => {
     setActiveIndex((prev) => (prev + 1) % total);
+  };
+
+  // Mouse wheel over the TV stage cycles through service channels
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const now = Date.now();
+    if (now - wheelLock.current < 350) return;
+    if (Math.abs(e.deltaY) < 12) return;
+    wheelLock.current = now;
+    if (e.deltaY > 0) goNext();
+    else goPrev();
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -145,6 +156,7 @@ export function ServicesTvGallery({
           className="mt-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-12"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
+          onWheel={handleWheel}
         >
           {/* Spatial CRT Stage */}
           <div
