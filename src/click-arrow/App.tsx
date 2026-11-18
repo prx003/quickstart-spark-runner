@@ -7,7 +7,6 @@ import { AboutSection } from './components/AboutSection';
 import { AttentionSection } from './components/AttentionSection';
 import { BrandExperienceSection } from './components/BrandExperienceSection';
 import { ContactSection } from './components/ContactSection';
-import { CreativeStudioGallery } from './components/CreativeStudioGallery';
 import { CustomCursor } from './components/CustomCursor';
 import { DigitalGrowthSection } from './components/DigitalGrowthSection';
 import { Navbar } from './components/Navbar';
@@ -182,12 +181,6 @@ export default function App() {
         <ServicesTvGallery
           onOpenModal={(idx) => setModalChannelIndex(idx)}
           onCursorHint={setCursorLabel}
-        />
-
-        {/* SECTION 05: CREATIVE STUDIO — VIDEO & PHOTOGRAPHY SHOWCASE */}
-        <CreativeStudioGallery
-          onCursorHint={setCursorLabel}
-          onStartProject={handleStartProject}
         />
 
         {/* SECTION 06: STRATEGY SECTION */}
