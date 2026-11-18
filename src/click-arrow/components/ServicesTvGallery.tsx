@@ -68,6 +68,7 @@ export function ServicesTvGallery({
   return (
     <section
       id="services"
+      onWheel={handleWheel}
       className="relative z-10 border-t border-white/15 bg-[#050505]/92 py-24 sm:py-32 overflow-hidden"
     >
       {/* Controlled bright red studio floor illumination */}
@@ -156,7 +157,6 @@ export function ServicesTvGallery({
           className="mt-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-12"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          onWheel={handleWheel}
         >
           {/* Spatial CRT Stage */}
           <div
