@@ -1,6 +1,6 @@
 // @ts-nocheck -- imported code written for looser compiler settings
 import { ArrowLeft, ArrowRight, Maximize2 } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SERVICES_CHANNELS } from '../data/clickArrowData';
 import { CrtCanvasScreen } from './CrtCanvasScreen';
 
@@ -17,6 +17,9 @@ export function ServicesTvGallery({
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const touchStartX = useRef<number | null>(null);
   const wheelLock = useRef(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const activeIndexRef = useRef(0);
+  activeIndexRef.current = activeIndex;
 
   const activeService = SERVICES_CHANNELS[activeIndex];
   const total = SERVICES_CHANNELS.length;
@@ -29,15 +32,37 @@ export function ServicesTvGallery({
     setActiveIndex((prev) => (prev + 1) % total);
   };
 
-  // Mouse wheel over the TV stage cycles through service channels
-  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    const now = Date.now();
-    if (now - wheelLock.current < 350) return;
-    if (Math.abs(e.deltaY) < 12) return;
-    wheelLock.current = now;
-    if (e.deltaY > 0) goNext();
-    else goPrev();
-  };
+  // Wheel over the section cycles channels first and holds the page scroll;
+  // only at the first/last channel does the page keep scrolling.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 12) return;
+      const idx = activeIndexRef.current;
+      const goingDown = e.deltaY > 0;
+      const canCycle = goingDown ? idx < total - 1 : idx > 0;
+      if (!canCycle) return; // at the edge: let the page scroll on
+
+      // Only hijack once the section is properly in view
+      const rect = section.getBoundingClientRect();
+      const engaged =
+        rect.top < window.innerHeight * 0.45 &&
+        rect.bottom > window.innerHeight * 0.6;
+      if (!engaged) return;
+
+      e.preventDefault();
+      e.stopPropagation(); // keep Lenis smooth-scroll from moving the page
+      const now = Date.now();
+      if (now - wheelLock.current < 350) return;
+      wheelLock.current = now;
+      setActiveIndex(goingDown ? idx + 1 : idx - 1);
+    };
+
+    section.addEventListener('wheel', onWheel, { passive: false });
+    return () => section.removeEventListener('wheel', onWheel);
+  }, [total]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -68,7 +93,7 @@ export function ServicesTvGallery({
   return (
     <section
       id="services"
-      onWheel={handleWheel}
+      ref={sectionRef}
       className="relative z-10 border-t border-white/15 bg-[#050505]/92 py-24 sm:py-32 overflow-hidden"
     >
       {/* Controlled bright red studio floor illumination */}

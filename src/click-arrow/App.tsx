@@ -139,7 +139,7 @@ export default function App() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <button
                 type="button"
-                onClick={() => scrollToSection('services')}
+                onClick={() => scrollToSection('contact')}
                 className="bg-white px-7 py-4 text-xs font-extrabold tracking-[0.18em] text-[#050505] uppercase shadow-[0_14px_35px_rgba(0,0,0,0.45)] transition-colors duration-150 hover:bg-[#050505] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white cursor-pointer"
               >
                 LET&apos;S MAKE IT HAPPEN.
