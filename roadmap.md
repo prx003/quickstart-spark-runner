@@ -1,6 +1,9 @@
 # Comment feedback roadmap
 
-All 14 open threads from shreyas. Status: done = implemented + verified in preview.
+All 16 open threads from shreyas. Status: done = implemented + verified in preview.
+
+- [x] #15 Hero "LET'S MAKE IT HAPPEN." → contact form (was Services)
+- [x] #16 Services holds page scroll while wheel-cycling channels 01→06, releases at edges
 
 - [x] WhatsApp contact option added (card + wa.me link)
 - [x] "Copy number" button on the phone card
