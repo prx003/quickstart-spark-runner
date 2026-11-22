@@ -182,28 +182,26 @@ export function ContactSection({ preselectedInterest }: ContactSectionProps) {
             </div>
 
             {/* Social Channels */}
-            <div className="mt-6 border border-white/15 bg-[#080808]/90 p-5">
-              <p className="font-mono-tabular text-xs text-white/60 uppercase">
-                Studio Channels
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2.5">
-                {CONTACT_DETAILS.socials.map((soc) => (
-                  <button
-                    key={soc.label}
-                    type="button"
-                    onClick={() =>
-                      setSocialNotice(
-                        `${soc.label} (${soc.handle}) — inquire via ${CONTACT_DETAILS.email} or the brief form.`,
-                      )
-                    }
-                    className="border border-white/20 px-4 py-2 text-xs font-semibold text-white transition-colors hover:border-[#E80012] hover:bg-[#E80012] cursor-pointer"
-                  >
-                    {soc.label}
-                  </button>
-                ))}
-              </div>
+            <div className="mt-6 inline-flex flex-wrap items-center gap-2.5 border border-white/15 bg-[#080808]/90 px-3.5 py-2.5">
+              <span className="font-mono-tabular text-[10px] text-white/60 uppercase tracking-widest">
+                Channels
+              </span>
+              {CONTACT_DETAILS.socials.map((soc) => (
+                <button
+                  key={soc.label}
+                  type="button"
+                  onClick={() =>
+                    setSocialNotice(
+                      `${soc.label} (${soc.handle}) — inquire via ${CONTACT_DETAILS.email} or the brief form.`,
+                    )
+                  }
+                  className="border border-white/20 px-2.5 py-1 text-[11px] font-semibold text-white transition-colors hover:border-[#E80012] hover:bg-[#E80012] cursor-pointer"
+                >
+                  {soc.label}
+                </button>
+              ))}
               {socialNotice && (
-                <p className="mt-3 text-xs text-white/80">{socialNotice}</p>
+                <p className="w-full text-[11px] text-white/80">{socialNotice}</p>
               )}
             </div>
           </div>

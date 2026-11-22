@@ -19,6 +19,7 @@ All 16 open threads from shreyas. Status: done = implemented + verified in previ
 - [x] Brand Experience cards + hub panel animate in on scroll
 - [x] Hero "Tune CRT Channel 01" click animation + modal entrance animation
 - [x] Services channels switch on wheel scroll
+- [x] Contact "Studio Channels" social card shrunk to a compact single-row bar
 
 Verified in preview: nav = Home/Services/Strategy/Process/Contact, contact cards show the
 new email, phone with copy button, WhatsApp card, only Instagram + LinkedIn; attention line
